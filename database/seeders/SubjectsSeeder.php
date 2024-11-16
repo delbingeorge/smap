@@ -57,7 +57,7 @@ class SubjectsSeeder extends Seeder
                 "subject_code" => "22MCA108",
                 "subject_name" => "Advanced Database Systems Lab",
             ],
-            
+
             //Sem 2 subjects
             [
                 "semester_number" => "2",
@@ -123,6 +123,58 @@ class SubjectsSeeder extends Seeder
                 "semester_number" => "2",
                 "subject_code" => "22MCA225",
                 "subject_name" => ".Net Framework and C#",
+            ],
+
+            //Sem 3 subjects
+            [
+                "semester_number" => "3",
+                "subject_code" => "22MCA301",
+                "subject_name" => "Artificial Intelligence and Machine Learning",
+            ],
+            [
+                "semester_number" => "3",
+                "subject_code" => "22MCA302",
+                "subject_name" => "Advanced Web Technologies",
+            ],
+            [
+                "semester_number" => "3",
+                "subject_code" => "22MCA331",
+                "subject_name" => "Mobile Computing and Application Development",
+            ],
+            [
+                "semester_number" => "3",
+                "subject_code" => "22MCA343",
+                "subject_name" => "Blockchain Technology",
+            ],
+            [
+                "semester_number" => "3",
+                "subject_code" => "22MCA344",
+                "subject_name" => "Network and Cyber Security",
+            ],
+            [
+                "semester_number" => "3",
+                "subject_code" => "22MCA351",
+                "subject_name" => "Cloud Computing and Big Data Analytics",
+            ],
+            [
+                "semester_number" => "3",
+                "subject_code" => "22MCA352",
+                "subject_name" => "Natural language processing",
+            ],
+            [
+                "semester_number" => "3",
+                "subject_code" => "22MCA303",
+                "subject_name" => "Artificial Intelligence and Machine Learning Lab",
+            ],
+            [
+                "semester_number" => "3",
+                "subject_code" => "22MCA304",
+                "subject_name" => "Advanced Web Technologies Lab",
+            ],
+            [
+                "semester_number" => "3",
+                "subject_code" => "22MCA305",
+                "subject_name" => "Mini Project Lab",
             ],
         ]);
     }
