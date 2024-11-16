@@ -10,8 +10,7 @@
 <body class="font-poppy">
     <div class="flex lg:flex-row flex-col">
         <div class="w-full lg:w-2/4 min-h-screen relative flex items-end justify-start">
-            <img src="/images/background.png" class="w-full top-0 left-0 h-full object-cover absolute -z-20"
-                alt="">
+            <img src="/images/background.png" class="w-full top-0 left-0 h-full object-cover absolute -z-20" alt="">
             <div
                 class="left-0 top-0 h-full w-full bg-gradient-to-t from-black/40 via-black/10 to-transparent absolute -z-10">
             </div>
@@ -21,6 +20,7 @@
                     <h2 class="font-medium text-xl">Welcome to</h2>
                     <h1 class="font-medium text-4xl">Student Mentorship App</h1>
                 </div>
+                <p class="font-semibold mb-3">Automated Feedback Collection and Academic Performance Analysis</p>
                 <p class=" mb-3">To develop NITTE as a Centre of Excellence imparting quality education, generating
                     competent, skilled manpower to face the scientific and social challenges, with a high degree of
                     credibility, integrity, ethical standards and social concern.</p>
@@ -44,7 +44,12 @@
                 </div>
                 <div class="flex flex-col w-[85%] lg:w-3/4">
                     <label for="password" class="label">
-                        {{-- <x-heroicon-o-user class="w-4 h-4" /> --}}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24">
+                            <g fill="none" stroke="currentColor" stroke-width="1.5">
+                                <circle cx="12" cy="6" r="4" />
+                                <path d="M20 17.5c0 2.485 0 4.5-8 4.5s-8-2.015-8-4.5S7.582 13 12 13s8 2.015 8 4.5Z" />
+                            </g>
+                        </svg>
                         <span>
                             Email Address
                         </span>
@@ -53,7 +58,11 @@
                 </div>
                 <div class="flex flex-col w-[85%] lg:w-3/4">
                     <label for="password" class="label">
-                        {{-- <x-heroicon-o-lock-closed class="w-4 h-4" /> --}}
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24">
+                            <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="1.5"
+                                d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25" />
+                        </svg>
                         <span>
                             Password
                         </span>
@@ -67,8 +76,7 @@
             </form>
             <div>
                 @if (session('invalid_admin_credential'))
-                    <div id="error-message"
-                        class="absolute z-40 bg-red-100 rounded-xl pr-24 pl-5 py-3 bottom-0 right-0">
+                    <div id="error-message" class="absolute z-40 bg-red-100 rounded-xl pr-24 pl-5 py-3 bottom-0 right-0">
                         <div class="flex items-center justify-center space-x-2 text-red-500">
                             {{-- <x-heroicon-o-user class="w-5 h-5" /> --}}
                             <h1 class="">
@@ -81,7 +89,7 @@
         </div>
     </div>
     <script>
-        window.addEventListener("scroll", function() {
+        window.addEventListener("scroll", function () {
             var scrollValue = window.scrollY;
             var image = document.getElementById("zoomImage");
 
@@ -89,7 +97,7 @@
             image.style.transform = "scale(" + scaleValue + ")";
         });
 
-        setTimeout(function() {
+        setTimeout(function () {
             document.getElementById('error-message').style.display = 'none';
         }, 5000);
     </script>
