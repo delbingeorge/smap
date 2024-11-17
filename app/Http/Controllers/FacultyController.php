@@ -74,17 +74,64 @@ class FacultyController extends Controller
             $student = Student::where('student_id', $request->student_id)->first();
             $student->delete();
 
-            DB::select("DELETE FROM mentorshiP WHERE mentee_id = ? AND mentor_id = ?", [$request->student_id, session('user_id')]);
+            DB::select("DELETE FROM mentorshiP WHERE mentee_id = ? AND mentor_id = ?", [$request->student_id, session(key: 'user_id')]);
 
             $user = User::where('user_id', $request->student_id)->first();
             $user->delete();
 
             return redirect()->route('teacher.dashboard')->with('success', 'Student removed successfully.');
         } catch (QueryException $exception) {
-            return redirect()->route('teacher.dashboard')->with('message', 'An error occurred while deleting student.');
+            return redirect()->route('teacher.dashboard')->with('error', 'An error occurred while deleting student.');
         }
 
     }
+
+    public function deleteStudentsBySemester(Request $request)
+    {
+        if (!Session::has('user_id') || Session::get('role') == "student") {
+            return redirect('/');
+        }
+
+        $request->validate([
+            'semester' => 'required',
+        ]);
+
+        $semester = $request->input('semester');
+
+        try {
+            $studentIds = DB::table('students')
+                ->where('semester', $semester)
+                ->whereIn('student_id', function ($query) {
+                    $query->select('mentee_id')
+                        ->from('mentorship')
+                        ->where('mentor_id', session('user_id'));
+                })
+                ->pluck('student_id');
+
+            if ($studentIds->isEmpty()) {
+                return redirect()->route('teacher.dashboard')->with('error', 'No mentees found for the selected semester.');
+            }
+
+            DB::table('mentorship')
+                ->whereIn('mentee_id', $studentIds)
+                ->where('mentor_id', session('user_id'))
+                ->delete();
+
+            DB::table('students')
+                ->whereIn('student_id', $studentIds)
+                ->delete();
+
+            DB::table('users')
+                ->whereIn('user_id', $studentIds)
+                ->delete();
+
+
+            return redirect()->route('teacher.dashboard')->with('success', 'Mentees of Semester ' . $semester . ' removed successfully.');
+        } catch (QueryException $exception) {
+            return redirect()->route('teacher.dashboard')->with('error', 'An error occurred while deleting students.');
+        }
+    }
+
 
     public function search(Request $request)
     {

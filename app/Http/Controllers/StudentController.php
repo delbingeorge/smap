@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sem_3_attendance;
 use App\Models\Student;
 use App\Models\Subject;
 use Illuminate\Database\QueryException;
@@ -155,23 +156,23 @@ class StudentController extends Controller
             }
             $sem_2_attendance->save();
         }
-        // if ($sem == 3) {
-        //     $sem_3_attendance = new Sem_3_attendance();
-        //     $sem_3_attendance->form_number = session('pending_feedback_number');
-        //     $sem_3_attendance->student_id = session('user_id');
-        //     foreach ($subjects as $subject) {
-        //         $subjectCode = $subject->subject_code;
-        //         $sem_3_attendance->$subjectCode = $request->input($subjectCode)!=null?$request->input($subjectCode):"null";
-        //     }
-        //     $sem_3_attendance->save();
-        // }
+        if ($sem == 3) {
+            $sem_3_attendance = new Sem_3_attendance();
+            $sem_3_attendance->form_number = session('pending_feedback_number');
+            $sem_3_attendance->student_id = session('user_id');
+            foreach ($subjects as $subject) {
+                $subjectCode = $subject->subject_code;
+                $sem_3_attendance->$subjectCode = $request->input($subjectCode) != null ? $request->input($subjectCode) : "null";
+            }
+            $sem_3_attendance->save();
+        }
         // if ($sem == 4) {
         //     $sem_4_attendance = new Sem_4_attendance();
         //     $sem_4_attendance->form_number = session('pending_feedback_number');
         //     $sem_4_attendance->student_id = session('user_id');
         //     foreach ($subjects as $subject) {
         //         $subjectCode = $subject->subject_code;
-        //         $sem_4_attendance->$subjectCode = $request->input($subjectCode)!=null?$request->input($subjectCode):"null";
+        //         $sem_4_attendance->$subjectCode = $request->input($subjectCode) != null ? $request->input($subjectCode) : "null";
         //     }
         //     $sem_4_attendance->save();
         // }
@@ -261,16 +262,16 @@ class StudentController extends Controller
             }
             $sem_2_mse->save();
         }
-        // if ($sem == 3) {
-        //     $sem_3_mse = new sem_3_mse();
-        //     $sem_3_mse->mse_number = session('pending_mse_number');
-        //     $sem_3_mse->student_id = session('user_id');
-        //     foreach ($subjects as $subject) {
-        //         $subjectCode = $subject->subject_code;
-        //         $sem_3_mse->$subjectCode = $request->input($subjectCode)!=null?$request->input($subjectCode):"null";
-        //     }
-        //     $sem_3_mse->save();
-        // }
+        if ($sem == 3) {
+            $sem_3_mse = new sem_3_mse();
+            $sem_3_mse->mse_number = session('pending_mse_number');
+            $sem_3_mse->student_id = session('user_id');
+            foreach ($subjects as $subject) {
+                $subjectCode = $subject->subject_code;
+                $sem_3_mse->$subjectCode = $request->input($subjectCode)!=null?$request->input($subjectCode):"null";
+            }
+            $sem_3_mse->save();
+        }
         // if ($sem == 4) {
         //     $sem_4_mse = new sem_4_mse();
         //     $sem_4_mse->mse_number = session('pending_mse_number');
