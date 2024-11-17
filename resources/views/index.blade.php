@@ -24,6 +24,7 @@
                     <h2 class="font-medium text-xl">Welcome to</h2>
                     <h1 class="font-medium text-4xl">Student Mentorship App</h1>
                 </div>
+                <p class="font-semibold mb-3">Automated Feedback Collection and Academic Performance Analysis</p>
                 <p class=" mb-3">To develop NITTE as a Centre of Excellence imparting quality education, generating
                     competent, skilled manpower to face the scientific and social challenges, with a high degree of
                     credibility, integrity, ethical standards and social concern.</p>
@@ -47,16 +48,11 @@
                 @csrf
                 <div class="flex flex-col items-center -space-y-1 lg:-space-y-3 justify-center">
                     <h2 class="text-[1rem] flex justify-center items-center space-x-2 lg:text-[1.3rem]">
-                        {{-- <x-heroicon-s-users  /> --}}
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 448 512">
-                            <path fill="currentColor"
-                                d="M224 256a128 128 0 1 0 0-256a128 128 0 1 0 0 256m-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512h388.6c16.4 0 29.7-13.3 29.7-29.7c0-98.5-79.8-178.3-178.3-178.3z" />
-                        </svg>
-                        <span>
+                        {{-- <x-heroicon-s-users /> --}}
+                        <h1 class="text-[2rem] lg:text-[2rem] font-medium">
                             Student & Staff Login
-                        </span>
+                        </h1>
                     </h2>
-                    <h1 class="text-[2rem] lg:text-[3rem] font-medium"> Get Started! </h1>
                 </div>
                 <div class="flex flex-col w-[85%] lg:w-3/4">
                     <label for="password" class="label animate-shakes">
@@ -70,8 +66,7 @@
                             Email Address
                         </span>
                     </label>
-                    <input type="email" name="email" class="input-fields" required
-                        placeholder="nnm2xmcxxx@nmamit.in">
+                    <input type="email" name="email" class="input-fields" required placeholder="nnm2xmcxxx@nmamit.in">
                 </div>
                 <div class="flex flex-col w-[85%] lg:w-3/4">
                     <label for="password" class="label animate-shakes">
@@ -93,8 +88,7 @@
             </form>
             <div>
                 @if (session('invalid_student_credential'))
-                    <div id="error-message"
-                        class="absolute z-40 bg-red-100 rounded-xl pr-24 pl-5 py-3 bottom-2 right-2">
+                    <div id="error-message" class="absolute z-40 bg-red-100 rounded-xl pr-24 pl-5 py-3 bottom-2 right-2">
                         <div class="flex items-center justify-center space-x-2 text-red-500">
                             {{-- <x-heroicon-o-user class="w-5 h-5" /> --}}
                             <h1 class="">
@@ -107,7 +101,7 @@
         </div>
     </div>
     <script>
-        window.addEventListener("scroll", function() {
+        window.addEventListener("scroll", function () {
             var scrollValue = window.scrollY;
             var image = document.getElementById("zoomImage");
 
@@ -115,7 +109,7 @@
             image.style.transform = "scale(" + scaleValue + ")";
         });
 
-        setTimeout(function() {
+        setTimeout(function () {
             document.getElementById('error-message').style.display = 'none';
         }, 5000);
     </script>
