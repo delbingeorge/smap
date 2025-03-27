@@ -134,31 +134,21 @@
 
 
                                     <form action="{{ route('delete_faculty') }}" method="post"
-                                        onsubmit="return confirmDelete()">
+                                        onsubmit="return menteesTransfer(event)">
                                         @csrf
                                         <input type="hidden" name="teacher_id" value="{{ $teacher->emp_id }}">
-                                        <button type="submit" class="hover:cursor-pointer" value="delete">
+                                        <button type="submit" class="hover:cursor-pointer">
                                             <svg width='24' viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round">
-                                                </g>
-                                                <g id="SVGRepo_iconCarrier">
-                                                    <path d="M20.5001 6H3.5" stroke="#000000" stroke-width="1.5"
-                                                        stroke-linecap="round"></path>
-                                                    <path
-                                                        d="M18.8332 8.5L18.3732 15.3991C18.1962 18.054 18.1077 19.3815 17.2427 20.1907C16.3777 21 15.0473 21 12.3865 21H11.6132C8.95235 21 7.62195 21 6.75694 20.1907C5.89194 19.3815 5.80344 18.054 5.62644 15.3991L5.1665 8.5"
-                                                        stroke="#000000" stroke-width="1.5" stroke-linecap="round">
-                                                    </path>
-                                                    <path d="M9.5 11L10 16" stroke="#000000" stroke-width="1.5"
-                                                        stroke-linecap="round"></path>
-                                                    <path d="M14.5 11L14 16" stroke="#000000" stroke-width="1.5"
-                                                        stroke-linecap="round"></path>
-                                                    <path
-                                                        d="M6.5 6C6.55588 6 6.58382 6 6.60915 5.99936C7.43259 5.97849 8.15902 5.45491 8.43922 4.68032C8.44784 4.65649 8.45667 4.62999 8.47434 4.57697L8.57143 4.28571C8.65431 4.03708 8.69575 3.91276 8.75071 3.8072C8.97001 3.38607 9.37574 3.09364 9.84461 3.01877C9.96213 3 10.0932 3 10.3553 3H13.6447C13.9068 3 14.0379 3 14.1554 3.01877C14.6243 3.09364 15.03 3.38607 15.2493 3.8072C15.3043 3.91276 15.3457 4.03708 15.4286 4.28571L15.5257 4.57697C15.5433 4.62992 15.5522 4.65651 15.5608 4.68032C15.841 5.45491 16.5674 5.97849 17.3909 5.99936C17.4162 6 17.4441 6 17.5 6"
-                                                        stroke="#000000" stroke-width="1.5"></path>
-                                                </g>
+                                                <path d="M20.5001 6H3.5" stroke="#000000" stroke-width="1.5"
+                                                    stroke-linecap="round"></path>
+                                                <path
+                                                    d="M18.8332 8.5L18.3732 15.3991C18.1962 18.054 18.1077 19.3815 17.2427 20.1907C16.3777 21 15.0473 21 12.3865 21H11.6132C8.95235 21 7.62195 21 6.75694 20.1907C5.89194 19.3815 5.80344 18.054 5.62644 15.3991L5.1665 8.5"
+                                                    stroke="#000000" stroke-width="1.5" stroke-linecap="round"></path>
+                                                <path d="M9.5 11L10 16" stroke="#000000" stroke-width="1.5"
+                                                    stroke-linecap="round"></path>
+                                                <path d="M14.5 11L14 16" stroke="#000000" stroke-width="1.5"
+                                                    stroke-linecap="round"></path>
                                             </svg>
-
                                         </button>
                                     </form>
                                     <a
@@ -187,8 +177,8 @@
             </div>
             <div>
                 @if (session('success'))
-                    <div id="message" class="absolute z-40 bg-primary rounded-xl pr-24 pl-5 py-3 bottom-0 right-0">
-                        <div class="flex items-center justify-center space-x-2 text-white">
+                    <div id="message" class="absolute z-40 bg-green-100 rounded-xl pr-24 pl-5 py-3 bottom-0 right-0">
+                        <div class="flex items-center justify-center space-x-2 text-green-500">
                             {{-- <x-heroicon-o-user class="w-5 h-5" /> --}}
                             <h1 class="">
                                 {{ session('success') }}
@@ -209,8 +199,40 @@
             </div>
         </div>
         <script>
-            function confirmDelete() {
-                return confirm('Delete this faculty member? \nMentees under this faculty will also be removed?');
+
+            function menteesTransfer(event) {
+                event.preventDefault(); // Prevent form submission
+
+                if (confirm('Do you want to assign the mentees to another faculty?')) {
+                    var newFacultyId = prompt('Enter the new faculty ID:');
+
+                    if (newFacultyId) {
+                        // Send AJAX request to update mentees
+                        fetch("{{ route('assign_mentees') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": document.querySelector('input[name="_token"]').value
+                            },
+                            body: JSON.stringify({
+                                old_faculty_id: "{{ $teacher->emp_id }}",
+                                new_faculty_id: newFacultyId
+                            })
+                        })
+                            .then(response => response.json())
+                            .then(data => {
+                                alert("Faculty Deleted Successfully");
+                                location.reload();
+                            })
+                            .catch(error => {
+                                alert("Error: " + error);
+                            });
+                        }
+                    } else {
+                        if (confirm('Delete this faculty? \nMentees under this faculty will also be removed?')) {
+                        event.target.submit();
+                    }
+                }
             }
 
             function confirmAction() {

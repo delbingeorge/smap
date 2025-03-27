@@ -9,6 +9,7 @@ use Exception;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
@@ -176,6 +177,32 @@ class FacultyController extends Controller
                 return redirect()->route('admin.dashboard');
             }
         }
-
     }
+
+    public function assignMentees(Request $request)
+    {
+        try {
+            Log::info('Assigning mentees', ['request' => $request->all()]);
+
+            // Validate input
+            $request->validate([
+                'old_faculty_id' => 'required',
+                'new_faculty_id' => 'required',
+            ]);
+
+            DB::select('UPDATE mentorship set mentor_id=? WHERE mentor_id=?', [$request->new_faculty_id, $request->old_faculty_id]);
+
+            $teacher = Teacher::where('emp_id', $request->old_faculty_id)->first();
+            $teacher->delete();
+
+            $user = User::where('user_id', $request->old_faculty_id)->first();
+            $user->delete();
+
+            return response()->json(['message' => 'Mentees reassigned successfully']);
+        } catch (Exception $e) {
+            Log::error('Error assigning mentees', ['error' => $e->getMessage()]);
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
 }

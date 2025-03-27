@@ -131,8 +131,8 @@ Route::get('/edit-faculty/{teacher_id}', function ($teacher_id) {
 Route::get('/admin/view-mentees/{teacher_id}&{teacher_name}', function ($teacher_id, $teacher_name) {
     if (Session::has('user_id') && Session::get('role') == "admin") {
         $students = DB::select("SELECT * FROM students WHERE student_id IN (SELECT mentee_id FROM mentorship WHERE mentor_id = ?)", [$teacher_id]);
-        $mentor_name=$teacher_name;
-        return view('admin.view-mentees', compact('students','mentor_name'));
+        $mentor_name = $teacher_name;
+        return view('admin.view-mentees', compact('students', 'mentor_name'));
     } else {
         return redirect('admin');
     }
@@ -168,6 +168,8 @@ Route::get('/profile', function () {
         return redirect('/');
     }
 })->name('teacher-profile');
+
+Route::post('/assign-mentees', [FacultyController::class, 'assignMentees'])->name('assign_mentees');
 
 
 

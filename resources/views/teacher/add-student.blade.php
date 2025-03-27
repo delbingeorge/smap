@@ -62,7 +62,7 @@
                         </div>
                         <div>
                             <p class="font-medium pb-2">Password:</p>
-                            <input type="text" name="password"
+                            <input type="password" name="password"
                                 class="bg-secondary w-full px-3 py-3 rounded-md outline-none border-2 focus:border-black/70 border-black/20"
                                 placeholder="***************">
                         </div>
